@@ -1,2 +1,1 @@
-# basic_word_embedding
-A basic example of word embeddings using Keras to classify sentiment in short text reviews.
+This project demonstrates a basic example of word embeddings using the Keras Embedding layer. It takes a small set of sample reviews and their associated sentiments, converts the text into numeric form, and trains a simple neural network to learn word representations.
