@@ -13,29 +13,45 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Flatten,Embedding
 
+# Sample reviews and corresponding sentiments (1 = positive, 0 = negative)
 reviews=['nice food','amazing restaurant','too good','just love it','will go again',
          'horrible food','never go there','poor service','poor quality','needs improvement']
 sentiments=np.array([1,1,1,1,1,0,0,0,0,0])
 
+# Define the vocabulary size (arbitrary but should cover all words)
 vocab_size=30
+
+# Convert text to integer sequences using one-hot encoding
 encoded_reviews=[one_hot(d,vocab_size) for d in reviews]
 encoded_reviews
+print("Encoded Reviews:")
+print(encoded_reviews)
 
+# Set max sequence length and apply padding
 max_length=4
 paded_review=pad_sequences(encoded_reviews,maxlen=max_length,padding='post')
 
+# Define embedding parameters
 embeded_vector_size=4
+
+# Build a simple model with an embedding layer followed by flatten and dense layers
 model=Sequential()
 model.add(Embedding(vocab_size,embeded_vector_size,input_length=max_length,name='embedding'))
 model.add(Flatten())
 model.add(Dense(1,activation='sigmoid'))
+
+# Show the model structure
 model.summary()
 
+# Prepare training data
 X=paded_review
 Y=sentiments
 
+# Compile and train the model
 model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 model.fit(X,Y,epochs=1)
 
-weights=model.get_layer('embedding').get_weights()[0]
-weights
+# Extract and print the learned embedding weights
+embedding_weights = model.get_layer('embedding').get_weights()[0]
+print("\nLearned Embedding Weights:")
+print(embedding_weights)
