@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1tcYISqq09UML11Kkqcz_76LupcQlJSVl
 """
 
+# Imports
 import numpy as np
 from tensorflow.keras.preprocessing.text import one_hot
 from tensorflow.keras.preprocessing.sequence import pad_sequences
